@@ -2,9 +2,9 @@
 
 A SQL project that builds and tests rule-based transaction monitoring queries on the PaySim mobile money dataset. The final rules catch **99.6% of fraud with only 5 false positives**.
 
-**Author:** Preeti Punia
-**Tools:** SQL (SQLite), DB Browser for SQLite
-**Dataset:** PaySim synthetic mobile money transactions
+- **Author:** Preeti Punia
+- **Tools:** SQL (SQLite), DB Browser for SQLite
+- **Dataset:** PaySim synthetic mobile money transactions
 
 ---
 
@@ -85,5 +85,13 @@ SQL aggregation, conditional aggregation (`CASE WHEN` inside `SUM`), filtering a
 ## How to Reproduce
 
 1. Download the PaySim dataset (CSV) and import it into SQLite as a table named `transactions`.
-2. Open the project in DB Browser for SQLite (`paysim1.sqbpro`).
+2. "Open the database in DB Browser for SQLite or any SQLite client."
 3. Run the queries in the Execute SQL tab.
+
+## What I Learned
+
+- A good fraud rule is not only about catching fraud. Two of my rules looked sensible, but each one would have created over a million false alerts. That showed me why false positives matter as much as detection.
+- A small sample can mislead. I first judged my rules from 20 rows, but testing on the full data gave a very different result.
+- One query returned 0 rows because of a typo (`= 1` instead of `= 0`). I learned to check my conditions before deciding that a pattern doesn't exist.
+- I chose to stop at 99.6% recall. The last 31 fraud cases had no pattern I could isolate without flagging thousands of normal transactions.
+- My day job in financial crime helped me think about this from the analyst's side: every extra false alert is real work for someone.
